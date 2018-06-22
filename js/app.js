@@ -29,15 +29,25 @@ function shuffle(array) {
     return array;
 }
 
-
+function showCard(clicked) {
+    clicked.classList.toggle('open');
+    clicked.classList.toggle('show');
+}
 
 deck.addEventListener('click', function(e) {
-    let li = event.target;
-    if (li.classList.contains('card')) {
-        li.classList.toggle('open');
-        li.classList.toggle('show');
+    let li = event.target.closest('li');
+
+    if (!li) {
+        return;
     }
+    
+    if (!li.classList.contains('card')) {
+       return;
+    }
+
+    showCard(li);
 });
+
 
 
 /*
