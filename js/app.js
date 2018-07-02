@@ -1,7 +1,7 @@
 
 const deck = document.querySelector('.deck');
 
-
+let cardList = [];
 /*
  * Create a list that holds all of your cards
  */
@@ -29,13 +29,39 @@ function shuffle(array) {
     return array;
 }
 
-function showCard(clicked) {
+function toggleView(clicked) {
     clicked.classList.toggle('open');
     clicked.classList.toggle('show');
 }
 
+function addCard(clicked) {
+    cardList.push(clicked);
+    //console.log(cardList);
+    return cardList;
+}
+
+function checkMatch(clicked) {
+    if (cardList[0].firstElementChild.className === cardList[1].firstElementChild.className) { //check if the two cards have matching class
+        //console.log("It's a match!"); 
+        cardList[0].classList.toggle('match'); //if so, leave two cards open
+        cardList[1].classList.toggle('match');
+    } else {
+        //console.log("Not a match :(");
+        toggleView(cardList[0]);
+        toggleView(cardList[1]);
+    }
+    
+    clearCardList(cardList); //clear the array and return it
+}
+
+function clearCardList(cards) {
+    cards.length = 0;
+    return cards;
+}
+
 deck.addEventListener('click', function(e) {
     let li = event.target.closest('li');
+    
 
     if (!li) {
         return;
@@ -45,7 +71,16 @@ deck.addEventListener('click', function(e) {
        return;
     }
 
-    showCard(li);
+    if (cardList.length < 2) {
+        toggleView(li);
+        addCard(li);
+        
+    }
+
+    if (cardList.length === 2) {
+        checkMatch(li);
+        
+    }
 });
 
 
