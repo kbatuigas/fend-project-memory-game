@@ -37,21 +37,25 @@ function toggleView(clicked) {
 function addCard(clicked) {
     cardList.push(clicked);
     //console.log(cardList);
-    return cardList;
+    
 }
 
-function checkMatch(clicked) {
-    if (cardList[0].firstElementChild.className === cardList[1].firstElementChild.className) { //check if the two cards have matching class
+function checkMatch() {
+    if (cardList[0].firstElementChild.className === cardList[1].firstElementChild.className) {  //check if the two cards have matching class
         //console.log("It's a match!"); 
-        cardList[0].classList.toggle('match'); //if so, leave two cards open
+        cardList[0].classList.toggle('match');  //if so, leave two cards open
         cardList[1].classList.toggle('match');
+        clearCardList(cardList);
     } else {
-        //console.log("Not a match :(");
-        toggleView(cardList[0]);
-        toggleView(cardList[1]);
+        setTimeout(function () {    
+            //console.log("Not a match :(");   
+            toggleView(cardList[0]);
+            toggleView(cardList[1]);
+            clearCardList(cardList);
+        }, 1000);
     }
     
-    clearCardList(cardList); //clear the array and return it
+    return cardList;     //clear the array and return it
 }
 
 function clearCardList(cards) {
@@ -71,14 +75,18 @@ deck.addEventListener('click', function(e) {
        return;
     }
 
-    if (cardList.length < 2) {
+    if (li.classList.contains('match')) {
+        return;
+     }
+
+    if ((cardList.length < 2) && (!cardList.includes(li))) {
         toggleView(li);
         addCard(li);
         
     }
 
     if (cardList.length === 2) {
-        checkMatch(li);
+        checkMatch();
         
     }
 });
