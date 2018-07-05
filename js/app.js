@@ -1,11 +1,9 @@
 
 const deck = document.querySelector('.deck');
+let cardList = [];  //cards to be checked for match
 
-let cardList = [];
-/*
- * Create a list that holds all of your cards
- */
-
+/* Shuffle deck */
+shuffleCards();
 
 /*
  * Display the cards on the page
@@ -13,6 +11,16 @@ let cardList = [];
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+function shuffleCards() {
+    /* Create an array of cards from node list */
+    const cardsArray = [].slice.call(document.querySelectorAll('.card')); 
+    const shuffledCards = shuffle(cardsArray);
+
+    for (card of shuffledCards) {
+        deck.appendChild(card);
+    }
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -29,17 +37,20 @@ function shuffle(array) {
     return array;
 }
 
+/* Opens a clicked card by toggling a class name on or off */
 function toggleView(clicked) {
     clicked.classList.toggle('open');
     clicked.classList.toggle('show');
 }
 
+/* Adds a clicked card to be checked against pair (push to array). (Max of 2 cards) */
 function addCard(clicked) {
     cardList.push(clicked);
     //console.log(cardList);
     
 }
 
+/* Checks card pair for match - must hav same class names */
 function checkMatch() {
     if (cardList[0].firstElementChild.className === cardList[1].firstElementChild.className) {  //check if the two cards have matching class
         //console.log("It's a match!"); 
@@ -47,7 +58,7 @@ function checkMatch() {
         cardList[1].classList.toggle('match');
         clearCardList(cardList);
     } else {
-        setTimeout(function () {    
+        setTimeout(function () {    // allows non-match clicked cards to display briefly 
             //console.log("Not a match :(");   
             toggleView(cardList[0]);
             toggleView(cardList[1]);
@@ -58,11 +69,13 @@ function checkMatch() {
     return cardList;     //clear the array and return it
 }
 
+/* "Clears" selected and checked card pair */
 function clearCardList(cards) {
-    cards.length = 0;
+    cards.length = 0;   // Set array length = 0 to "clear" it
     return cards;
 }
 
+/* If a clicked card meets the right conditions, show card and check match*/
 deck.addEventListener('click', function(e) {
     let li = event.target.closest('li');
     
