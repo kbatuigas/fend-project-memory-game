@@ -1,6 +1,7 @@
 
 const deck = document.querySelector('.deck');
 let cardList = [];  //cards to be checked for match
+let moves = 0;  //Clear moves counter. 1 pair of cards checked = 1 move
 
 /* Shuffle deck */
 shuffleCards();
@@ -75,6 +76,20 @@ function clearCardList(cards) {
     return cards;
 }
 
+
+function addMove() {
+    moves++;
+    const movesDisplay = document.querySelector('.moves');
+    
+    if (moves === 1) {
+        movesDisplay.nextSibling.textContent = " Move";
+    } else {
+        movesDisplay.nextSibling.textContent = " Moves";
+    }
+    movesDisplay.textContent = moves;
+
+}
+
 /* If a clicked card meets the right conditions, show card and check match*/
 deck.addEventListener('click', function(e) {
     let li = event.target.closest('li');
@@ -100,7 +115,8 @@ deck.addEventListener('click', function(e) {
 
     if (cardList.length === 2) {
         checkMatch();
-        
+        addMove();
+
     }
 });
 
