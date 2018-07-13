@@ -128,6 +128,10 @@ deck.addEventListener('click', function(e) {
         return;
      }
 
+     if (li.classList.contains('open') || li.classList.contains('show')) {
+        return;
+     }
+
     if ((cardList.length < 2) && (!cardList.includes(li))) {
         toggleView(li);
         addCard(li);
