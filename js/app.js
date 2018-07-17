@@ -87,6 +87,27 @@ function addMove() {
         movesDisplay.nextSibling.textContent = " Moves";
     }
     movesDisplay.textContent = moves;
+    return moves;
+
+}
+
+function checkMoves() {
+    if (moves === 8 || moves === 24 || moves === 32) {
+        removeStar();
+    }
+       
+}
+
+function removeStar() {
+    const stars = document.querySelectorAll('.score-panel .stars li');
+    
+    for (const star of stars) {
+        if (!(star.style.visibility === 'hidden')) {
+            star.style.visibility = 'hidden';
+        break;
+        }
+    
+    }
 
 }
 
@@ -107,6 +128,10 @@ deck.addEventListener('click', function(e) {
         return;
      }
 
+     if (li.classList.contains('open') || li.classList.contains('show')) {
+        return;
+     }
+
     if ((cardList.length < 2) && (!cardList.includes(li))) {
         toggleView(li);
         addCard(li);
@@ -116,7 +141,7 @@ deck.addEventListener('click', function(e) {
     if (cardList.length === 2) {
         checkMatch();
         addMove();
-
+        checkMoves();
     }
 });
 
