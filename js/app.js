@@ -2,6 +2,8 @@
 const deck = document.querySelector('.deck');
 let cardList = [];  //cards to be checked for match
 let moves = 0;  //Clear moves counter. 1 pair of cards checked = 1 move
+let duration = 0, timerId;
+let timerOn = false;
 
 /* Shuffle deck */
 shuffleCards();
@@ -111,7 +113,41 @@ function removeStar() {
 
 }
 
-/* If a clicked card meets the right conditions, show card and check match*/
+function startTimer() {
+    timerId = setInterval( function() {
+        duration++;
+        displayTime();
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerId);
+    timerOn = false;
+    duration = 0;   //reset clock
+}
+
+
+function displayTime() {
+    const timer = document.querySelector('.timer');
+    let sec = duration % 60;
+    let min = Math.floor(duration / 60);
+
+    if (sec < 10) {
+        timer.textContent = `${min}:0${sec}`;
+    } else {
+        timer.textContent = `${min}:${sec}`;
+    }
+}
+
+/*  No event handler if:
+        -element clicked on is not a card
+        -card clicked on is an already matched card
+        -card clicked on is an already open card
+    Conditional added to prevent more than 3 cards at a time from being opened, added
+        to cardList array and checked for match
+    Conditional added that will check clicked cards and count as one complete
+        move if there are exactly 2 cards in cardList
+*/
 deck.addEventListener('click', function(e) {
     let li = event.target.closest('li');
     
@@ -133,6 +169,10 @@ deck.addEventListener('click', function(e) {
      }
 
     if ((cardList.length < 2) && (!cardList.includes(li))) {
+        if (!timerOn) {
+            startTimer();
+            timerOn = true;
+        }
         toggleView(li);
         addCard(li);
         
