@@ -144,6 +144,32 @@ function toggleModal() {
     modal.classList.toggle('hide');
 }
 
+function displayStats() {
+    const timeDisplay = document.querySelector('#statsTime');
+    const movesDisplay = document.querySelector('#statsMoves');
+    const starsDisplay = document.querySelector('#statsStars');
+    let timeStats = document.querySelector('.timer').innerText;
+    let movesStats = document.querySelector('.moves').innerText;
+    let starsStats = getStars();
+
+    timeDisplay.textContent = `${timeStats}`;
+    movesDisplay.textContent = `${movesStats}`;
+    starsDisplay.textContent = `${starsStats}`;
+
+}
+
+function getStars() {
+    const finalStars = document.querySelectorAll('.stars li');
+    let finalStarCount = 0;
+
+    for (star of finalStars) {
+        if (!(star.style.visibility === 'hidden')) {
+            finalStarCount++;
+        }
+    }
+    return finalStarCount;
+}
+
 /*  No event handler if:
         -element clicked on is not a card
         -card clicked on is an already matched card
