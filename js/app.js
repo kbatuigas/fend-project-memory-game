@@ -139,6 +139,11 @@ function displayTime() {
     }
 }
 
+function toggleModal() {
+    const modal = document.getElementById('openModal');
+    modal.classList.toggle('hide');
+}
+
 /*  No event handler if:
         -element clicked on is not a card
         -card clicked on is an already matched card
