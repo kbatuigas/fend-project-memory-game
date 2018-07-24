@@ -1,13 +1,46 @@
 
 const deck = document.querySelector('.deck');
 const closeModal = document.querySelector('.modal-close');
+const replayButton = document.querySelector('.modal-replay');
 let cardList = [];  //cards to be checked for match
 let moves = 0;  //Clear moves counter. 1 pair of cards checked = 1 move
 let duration = 0, timerId;
 let timerOn = false;
 
+
+
 /* Shuffle deck */
 shuffleCards();
+
+function resetGame() {
+    resetTime();
+    resetMoves();
+    resetStars();
+    shuffleCards();
+}
+
+function resetTime() {
+    stopTimer();
+    duration = 0;
+    displayTime();
+}
+
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').textContent = moves;
+}
+
+function resetStars() {
+    const stars = document.getElementsByClassName('fa-star');
+
+    for (let star of stars) {
+        if (star.style.visibility === 'hidden') {
+            star.style.visibility = 'visible';
+        break;
+        }
+    }
+}
+
 
 /*
  * Display the cards on the page
@@ -171,10 +204,15 @@ function getStars() {
     return finalStarCount;
 }
 
-closeModal.addEventListener('click', function(e) {
+closeModal.addEventListener('click', function() {
         toggleModal();
     }
 )
+
+replayButton.addEventListener('click', function() {
+        toggleModal();
+        resetGame();
+});
 
 /*  No event handler if:
         -element clicked on is not a card
@@ -222,7 +260,7 @@ deck.addEventListener('click', function(e) {
     }
 });
 
-
+document.querySelector('.restart').addEventListener('click', resetGame);
 
 /*
  * set up the event listener for a card. If a card is clicked:
