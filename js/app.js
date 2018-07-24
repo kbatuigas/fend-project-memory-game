@@ -1,5 +1,6 @@
 
 const deck = document.querySelector('.deck');
+const closeModal = document.querySelector('.modal-close');
 let cardList = [];  //cards to be checked for match
 let moves = 0;  //Clear moves counter. 1 pair of cards checked = 1 move
 let duration = 0, timerId;
@@ -169,6 +170,11 @@ function getStars() {
     }
     return finalStarCount;
 }
+
+closeModal.addEventListener('click', function(e) {
+        toggleModal();
+    }
+)
 
 /*  No event handler if:
         -element clicked on is not a card
