@@ -6,6 +6,7 @@ let cardList = [];  //cards to be checked for match
 let moves = 0;  //Clear moves counter. 1 pair of cards checked = 1 move
 let duration = 0, timerId;
 let timerOn = false;
+let matchedCards = 0;
 
 
 
@@ -38,11 +39,8 @@ function resetStars() {
     for (let resetStar of resetStars) {
         if (resetStar.style.visibility === 'hidden') {
             resetStar.style.visibility = 'visible';
-        break;
         }
     }
-
-    //getStars();
 }
 
 function resetDeck() {
@@ -51,8 +49,24 @@ function resetDeck() {
     for (let card of finalCards) {
         card.className = 'card';    // class = 'card' puts all cards in an 'unopened' state
     }
+    matchedCards = 0;
 }
 
+/*
+* Game win condition: when all cards in deck have been matched
+*/
+
+function checkWin() {
+    if (matchedCards === 8) {
+        endGame();
+    }
+}
+
+function endGame() {
+    stopTimer();
+    displayStats();
+    toggleModal();
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -104,6 +118,7 @@ function checkMatch() {
         //console.log("It's a match!"); 
         cardList[0].classList.toggle('match');  //if so, leave two cards open
         cardList[1].classList.toggle('match');
+        matchedCards++;
         clearCardList(cardList);
     } else {
         setTimeout(function () {    // allows non-match clicked cards to display briefly 
@@ -142,7 +157,8 @@ function checkMoves() {
     if (moves === 8 || moves === 24 || moves === 32) {
         removeStar();
     }
-       
+
+    checkWin();       
 }
 
 function removeStar() {
