@@ -39,7 +39,6 @@ function resetStars() {
     for (let resetStar of resetStars) {
         if (resetStar.style.visibility === 'hidden') {
             resetStar.style.visibility = 'visible';
-        break;
         }
     }
 }
@@ -50,6 +49,7 @@ function resetDeck() {
     for (let card of finalCards) {
         card.className = 'card';    // class = 'card' puts all cards in an 'unopened' state
     }
+    matchedCards = 0;
 }
 
 /*
