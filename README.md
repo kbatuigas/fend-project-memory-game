@@ -3,18 +3,27 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [About](#about)
+* [Resources](#resources)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Play a simple Memory Game here: https://kbatuigas.github.io/fend-project-memory-game/ Open each card and find its match.
 
-To get started, open `js/app.js` and start building out the app's functionality
+The more moves you take to match pairs of cards, the fewer stars you have. 
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+## About
 
-## Contributing
+This game was created using HTML5, CSS3, and JavaScript.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+For ideas and suggestions on contributions to improve this game, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Resources
+
+Starter code used, courtesy of Richard Kalehoff (Udacity): https://github.com/udacity/fend-project-memory-game
+
+Many thanks to fellow Grow with Google scholar Matthew Cranford. Check out his 8-part guide to building this game here: https://matthewcranford.com/memory-game-walkthrough-part-1-setup/
+
+Guidance and tips on creating a pop-up modal taken from here: https://www.webdesignerdepot.com/2012/10/creating-a-modal-window-with-html5-and-css3/
+
+ 
