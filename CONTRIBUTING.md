@@ -1,3 +1,7 @@
-# How to contribute
+# Ways to contribute
 
-The files in this repository are used as the starting point for all students. Because we want students to write the majority of the code themselves, pull requests (most likely) will _not_ be merged into the project.
+-Add CSS animation within gameplay (e.g. when cards are flipped over)
+-Store game state using local storage
+-Save a "high score"
+-Add animation when game is completed (e.g. confetti)
+-Implement a "countdown" timer / time limit for gameplay
