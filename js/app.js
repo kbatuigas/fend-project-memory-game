@@ -1,12 +1,57 @@
 
 const deck = document.querySelector('.deck');
+const closeModal = document.querySelector('.modal-close');
+const replayButton = document.querySelector('.modal-replay');
 let cardList = [];  //cards to be checked for match
 let moves = 0;  //Clear moves counter. 1 pair of cards checked = 1 move
 let duration = 0, timerId;
 let timerOn = false;
 
+
+
 /* Shuffle deck */
 shuffleCards();
+
+function resetGame() {
+    resetTime();
+    resetMoves();
+    resetStars();
+    resetDeck();
+    shuffleCards();
+}
+
+function resetTime() {
+    stopTimer();
+    duration = 0;
+    displayTime();
+}
+
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').textContent = moves;
+    return moves;
+}
+
+function resetStars() {
+    const resetStars = document.querySelectorAll('.stars li');
+
+    for (let resetStar of resetStars) {
+        if (resetStar.style.visibility === 'hidden') {
+            resetStar.style.visibility = 'visible';
+        break;
+        }
+    }
+
+    //getStars();
+}
+
+function resetDeck() {
+    const finalCards = document.querySelectorAll('.deck .card')
+
+    for (let card of finalCards) {
+        card.className = 'card';    // class = 'card' puts all cards in an 'unopened' state
+    }
+}
 
 /*
  * Display the cards on the page
@@ -139,6 +184,47 @@ function displayTime() {
     }
 }
 
+function toggleModal() {
+    const modal = document.getElementById('openModal');
+    modal.classList.toggle('hide');
+}
+
+function displayStats() {
+    const timeDisplay = document.querySelector('#statsTime');
+    const movesDisplay = document.querySelector('#statsMoves');
+    const starsDisplay = document.querySelector('#statsStars');
+    let timeStats = document.querySelector('.timer').innerText;
+    let movesStats = document.querySelector('.moves').innerText;
+    let starsStats = getStars();
+
+    timeDisplay.textContent = `${timeStats}`;
+    movesDisplay.textContent = `${movesStats}`;
+    starsDisplay.textContent = `${starsStats}`;
+
+}
+
+function getStars() {
+    const finalStars = document.querySelectorAll('.stars li');
+    let finalStarCount = 0;
+
+    for (star of finalStars) {
+        if (!(star.style.visibility === 'hidden')) {
+            finalStarCount++;
+        }
+    }
+    return finalStarCount;
+}
+
+closeModal.addEventListener('click', function() {
+        toggleModal();
+    }
+)
+
+replayButton.addEventListener('click', function() {
+        toggleModal();
+        resetGame();
+});
+
 /*  No event handler if:
         -element clicked on is not a card
         -card clicked on is an already matched card
@@ -185,7 +271,7 @@ deck.addEventListener('click', function(e) {
     }
 });
 
-
+document.querySelector('.restart').addEventListener('click', resetGame);
 
 /*
  * set up the event listener for a card. If a card is clicked:
