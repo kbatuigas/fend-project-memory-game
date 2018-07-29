@@ -16,6 +16,7 @@ function resetGame() {
     resetTime();
     resetMoves();
     resetStars();
+    resetDeck();
     shuffleCards();
 }
 
@@ -28,19 +29,29 @@ function resetTime() {
 function resetMoves() {
     moves = 0;
     document.querySelector('.moves').textContent = moves;
+    return moves;
 }
 
 function resetStars() {
-    const stars = document.getElementsByClassName('fa-star');
+    const resetStars = document.querySelectorAll('.stars li');
 
-    for (let star of stars) {
-        if (star.style.visibility === 'hidden') {
-            star.style.visibility = 'visible';
+    for (let resetStar of resetStars) {
+        if (resetStar.style.visibility === 'hidden') {
+            resetStar.style.visibility = 'visible';
         break;
         }
     }
+
+    //getStars();
 }
 
+function resetDeck() {
+    const finalCards = document.querySelectorAll('.deck .card')
+
+    for (let card of finalCards) {
+        card.className = 'card';    // class = 'card' puts all cards in an 'unopened' state
+    }
+}
 
 /*
  * Display the cards on the page
