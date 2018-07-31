@@ -99,10 +99,16 @@ function shuffle(array) {
     return array;
 }
 
-/* Opens a clicked card by toggling a class name on or off */
-function toggleView(clicked) {
+/* Ading a class name allows the card to be viewed */
+function openCards(clicked) {
     clicked.classList.toggle('open');
     clicked.classList.toggle('show');
+}
+
+/* Hide cards if they don't match */
+function hideCards(clicked) {
+    clicked.classList.remove('open');
+    clicked.classList.remove('show');
 }
 
 /* Adds a clicked card to be checked against pair (push to array). (Max of 2 cards) */
@@ -123,8 +129,8 @@ function checkMatch() {
     } else {
         setTimeout(function () {    // allows non-match clicked cards to display briefly 
             //console.log("Not a match :(");   
-            toggleView(cardList[0]);
-            toggleView(cardList[1]);
+            hideCards(cardList[0]);
+            hideCards(cardList[1]);
             clearCardList(cardList);
         }, 1000);
     }
@@ -275,7 +281,7 @@ deck.addEventListener('click', function(e) {
             startTimer();
             timerOn = true;
         }
-        toggleView(li);
+        openCards(li);
         addCard(li);
         
     }
